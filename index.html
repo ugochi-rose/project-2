@@ -93,7 +93,7 @@
 
           <!-- 5-Day Forecast -->
           <div v-if="forecast.length" class="mt-5">
-            <h5 class="mb-3 pt-2">5-Day Forecast</h5>
+            <h4 class="mb-3 pt-2">5-Day Forecast</h4>
             <div class="d-flex justify-content-center flex-wrap gap-3">
               <div v-for="day in forecast" :key="day.dt" class="forecast-card text-center">
                 <p class="mb-1 fw-bold">{{ new Date(day.dt_txt).toLocaleDateString('en-US', { weekday: 'short' }) }}</p>
