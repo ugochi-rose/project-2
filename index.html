@@ -76,13 +76,14 @@
         <div id="app">
           <h4 class="header mb-5 pt-4">Today's Weather</h4>
 
-          <!-- Input + Button -->
+          <!-- search city weather -->
           <div class="d-flex gap-2 mb-3">
             <input v-model="city" class="form-control form-control-lg" placeholder="Enter city" />
             <button @click="getWeather" class="btn btn-primary">Search</button>
           </div>
+          <!-- end search city weather -->
 
-          <!-- Main Weather -->
+          <!-- weather -->
           <div v-if="weather && weather.main">
             <h4 class="pt-5 weather-name">{{ weather.name }}</h4>
             <p class="pt-4 weather-date" v-if="localDate">{{ localDate }}</p>
@@ -90,8 +91,9 @@
             <h3 class="glow-text">{{ weather.main.temp }}°C</h3>
             <p class="pt-4 pb-5 weather-description text-capitalize">{{ weather.weather[0].description }}</p>
           </div>
+          <!-- end weather -->
 
-          <!-- 5-Day Forecast -->
+          <!-- To show the 5-Day Forecast -->
           <div v-if="forecast.length" class="mt-5">
             <h4 class="mb-3 pt-2">5-Day Forecast</h4>
             <div class="d-flex justify-content-center flex-wrap gap-3">
@@ -102,8 +104,9 @@
               </div>
             </div>
           </div>
+          <!-- end To show the 5-Day Forecast -->
 
-          <!-- Error -->
+          
           <p v-if="error" class="text-danger mt-3">{{ error }}</p>
         </div>
       </div>
@@ -131,8 +134,8 @@
           this.error = '';
           this.localDate = '';
 
-          const apiKey = '1d2326eaff8dbe53a3d40f211be7cc0e';
-          const timeApiKey = 'NN9DA7YHE3P9'; // Replace with your TimeZoneDB key
+          const apiKey = '1d2326eaff8dbe53a3d40f211be7cc0e'; //Open Weather API key
+          const timeApiKey = 'NN9DA7YHE3P9'; //TimeZoneDB API key
 
           const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${apiKey}&units=metric`;
           const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&appid=${apiKey}&units=metric`;
@@ -164,11 +167,11 @@
                 this.localDate = dateObj.toLocaleDateString(undefined, options);
               }
 
-              // Forecast: filter to 12:00 PM entries
+              // Forecast
               this.forecast = forecastData.list.filter(item => item.dt_txt.includes("12:00:00"));
 
             } else {
-              this.error = currentData.message || 'City not found';
+              this.error = currentData.message || 'City not found, Try again';
             }
           } catch (err) {
             this.error = 'Unable to fetch weather. Check your connection.';
